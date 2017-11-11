@@ -2,7 +2,15 @@ import numpy as np
 
 class HMM(object):
 
+	 """This classe defines an Hidden Markov Model.
+	 An HMM is defined as a tuple (X, Z, P, O) where:
+	 X - is the set of possible states.
+	 Z - the set of possible observation.
+	 P - is the transition probability matrix.
+	 O - is the obsertation/emission probability matrix. """
+
 	def __init__(self, X, Z, P, O, inicial_dist=None):
+		"""Create a HMM. If no initial distribution is given it will assume that it is equal for each state."""
 		self.X = np.array(X)
 		self.Z = np.array(Z)
 		self.P = np.array(P)
@@ -14,12 +22,14 @@ class HMM(object):
 			self.inicial_dist = np.array([1/len(X)]*len(X))
 
 	def emisson_distribution(self, e):
+		"""Maps an observation/emission string into the correct distribution for that emission. """
 		for i in range(0, len(self.Z)):
 			if e == self.Z[i]:
 				return self.O[:,i]
 		return None
 
 	def viterbi(self, seq):
+		""" Viterbi Algorithm. Returns a list of states index."""
 		# initialization
 		m = np.diag(self.emisson_distribution(seq[0])).dot(self.inicial_dist)
 		I = [[]]*(len(seq)-1)
@@ -41,15 +51,19 @@ class HMM(object):
 		return states
 
 	def forward(self, seq):
+		"""" Forward algorithm. Returns a vector with the probability of each state given an observed sequence. """
 		a = np.diag(self.emisson_distribution(seq[0])).dot(self.inicial_dist)
 		for i in range(1, len(seq)):
 			a = (np.diag(self.emisson_distribution(seq[i])).dot(self.P.T)).dot(a)
 		return a
 
 	def norm(self, vec):
+		""" Auxiliar function to normalize a vector. Usefull por exemple to normalize the forward result."""
 		return vec/np.sum(vec)
 
+""" main module function used to solve the LAB. """
 def run():
+
 	P = [[0.6,  0.4,  0.0],
 	     [0.25, 0.5,  0.25],
 	     [0.25, 0.25, 0.5]]
