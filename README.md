@@ -1,5 +1,5 @@
 # bioinformatics 17/18
-Repository for bioinformatics 17/18 (professor Ana Teresa Correia de Freitas)
+Repository for bioinformatics 17/18 Prof.: Ana Teresa Correia de Freitas from Instituto Superior Tecnico
 
 ### LAB 4
 Folder LAB4 contains the laboratory description in file LAB4.pdf and the source code used to solve question 2.
