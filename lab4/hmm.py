@@ -2,7 +2,7 @@ import numpy as np
 
 class HMM(object):
 
-	 """This classe defines an Hidden Markov Model.
+	 """This class defines an Hidden Markov Model.
 	 An HMM is defined as a tuple (X, Z, P, O) where:
 	 X - is the set of possible states.
 	 Z - the set of possible observation.
@@ -21,7 +21,7 @@ class HMM(object):
 		else:
 			self.inicial_dist = np.array([1/len(X)]*len(X))
 
-	def emisson_distribution(self, e):
+	def emission_distribution(self, e):
 		"""Maps an observation/emission string into the correct distribution for that emission. """
 		for i in range(0, len(self.Z)):
 			if e == self.Z[i]:
@@ -31,13 +31,13 @@ class HMM(object):
 	def viterbi(self, seq):
 		""" Viterbi Algorithm. Returns a list of states index."""
 		# initialization
-		m = np.diag(self.emisson_distribution(seq[0])).dot(self.inicial_dist)
+		m = np.diag(self.emission_distribution(seq[0])).dot(self.inicial_dist)
 		I = [[]]*(len(seq)-1)
 
 		# cycle over the sequence
 		for i in range(1, len(seq)):
 			I[i-1] = np.argmax(self.P.T.dot(np.diag(m)), axis=1)
-			m = np.diag(self.emisson_distribution(seq[i])).dot(np.amax(self.P.T.dot(np.diag(m)), axis=1))
+			m = np.diag(self.emission_distribution(seq[i])).dot(np.amax(self.P.T.dot(np.diag(m)), axis=1))
 
 		# backtrack
 		# current variable will be initialized as the most probable final state and it will backtrack until the first state.
@@ -52,9 +52,9 @@ class HMM(object):
 
 	def forward(self, seq):
 		"""" Forward algorithm. Returns a vector with the probability of each state given an observed sequence. """
-		a = np.diag(self.emisson_distribution(seq[0])).dot(self.inicial_dist)
+		a = np.diag(self.emission_distribution(seq[0])).dot(self.inicial_dist)
 		for i in range(1, len(seq)):
-			a = (np.diag(self.emisson_distribution(seq[i])).dot(self.P.T)).dot(a)
+			a = (np.diag(self.emission_distribution(seq[i])).dot(self.P.T)).dot(a)
 		return a
 
 	def norm(self, vec):
