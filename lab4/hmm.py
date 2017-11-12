@@ -2,12 +2,13 @@ import numpy as np
 
 class HMM(object):
 
-	 """This class defines an Hidden Markov Model.
+	"""This class defines an Hidden Markov Model.
 	 An HMM is defined as a tuple (X, Z, P, O) where:
 	 X - is the set of possible states.
 	 Z - the set of possible observation.
 	 P - is the transition probability matrix.
-	 O - is the obsertation/emission probability matrix. """
+	 O - is the obsertation/emission probability matrix. 
+	"""
 
 	def __init__(self, X, Z, P, O, inicial_dist=None):
 		"""Create a HMM. If no initial distribution is given it will assume that it is equal for each state."""
@@ -65,12 +66,12 @@ class HMM(object):
 def run():
 
 	P = [[0.6,  0.4,  0.0],
-	     [0.25, 0.5,  0.25],
-	     [0.25, 0.25, 0.5]]
+		 [0.25, 0.5,  0.25],
+		 [0.25, 0.25, 0.5]]
 
 	O = [[0.4, 0.3, 0.0, 0.3], 
-	     [0.1, 0.1, 0.4, 0.4], 
-	     [0.4, 0.3, 0.3, 0.0]]
+		 [0.1, 0.1, 0.4, 0.4], 
+		 [0.4, 0.3, 0.3, 0.0]]
 
 	X = ["S1", "S2", "S3"]
 	Z = ['A', 'T', 'C' ,'G']
@@ -97,7 +98,7 @@ def run():
 	print(hmm.norm(forward))
 
 if __name__ == '__main__':
-    run()
+	run()
 
 		
 
