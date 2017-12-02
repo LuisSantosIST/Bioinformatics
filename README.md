@@ -1,4 +1,4 @@
-# bioinformatics 17/18
+# Bioinformatics 17/18
 Repository for bioinformatics 17/18 Prof.: Ana Teresa Correia de Freitas from Instituto Superior Tecnico
 
 ## LAB 4
